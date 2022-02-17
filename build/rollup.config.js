@@ -2,6 +2,10 @@ const path = require('path')
 const buble = require('@rollup/plugin-buble')
 const { babel } = require('@rollup/plugin-babel');
 const server = require('rollup-plugin-serve');
+const {nodeResolve} = require('@rollup/plugin-node-resolve');
+console.log('6', nodeResolve)
+const commonjs = require('@rollup/plugin-commonjs');
+
 const resolveFile = require('./resolveFile')
 
 // babel 配置
@@ -14,39 +18,56 @@ const plugins = [
 ]
 
 
-// nodejs api 模式热编译
+// nodejs 模块引用
 module.exports = [
     {
         input: resolveFile('src/index.js'),
         output: {
             file: resolveFile('dist/index.js'),
             format: 'umd',
-            name: 'Demo',
         }, 
-        external: ['lib/hello', 'lib/world'],
-        plugins,
-    },
-  
-    {
-        input: resolveFile('src/lib/hello.js'),
-        output: {
-            file: resolveFile('dist/lib/hello.js'),
-            format: 'umd',
-            name: 'Hello',
-        }, 
-        plugins,
-    },
-  
-    {
-        input: resolveFile('src/lib/world.js'),
-        output: {
-            file: resolveFile('dist/lib/world.js'),
-            format: 'umd',
-            name: 'World',
-        }, 
-        plugins,
+        plugins: [
+            nodeResolve(),
+            commonjs(),
+            ...plugins
+        ],
     },
 ]
+
+
+// nodejs api 模式热编译
+// module.exports = [
+//     {
+//         input: resolveFile('src/index.js'),
+//         output: {
+//             file: resolveFile('dist/index.js'),
+//             format: 'umd',
+//             name: 'Demo',
+//         }, 
+//         external: ['lib/hello', 'lib/world'],
+//         plugins,
+//     },
+  
+//     {
+//         input: resolveFile('src/lib/hello.js'),
+//         output: {
+//             file: resolveFile('dist/lib/hello.js'),
+//             format: 'umd',
+//             name: 'Hello',
+//         }, 
+//         plugins,
+//     },
+  
+//     {
+//         input: resolveFile('src/lib/world.js'),
+//         output: {
+//             file: resolveFile('dist/lib/world.js'),
+//             format: 'umd',
+//             name: 'World',
+//         }, 
+//         plugins,
+//     },
+// ]
 
 
 

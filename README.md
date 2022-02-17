@@ -1,6 +1,15 @@
 # rollup
 https://chenshenhai.github.io/rollupjs-note/note/chapter00/01.html
 
+## rollup.rollup()主要分为以下几步：
+- 配置收集、标准化
+- 文件分析
+- 源码编译，生成ast
+- 模块生成
+- 依赖解析
+- 过滤净化
+- 产出chunks
+
 ## 目录
 ```bash
 ├── build # 编译脚本目录
@@ -20,6 +29,21 @@ https://chenshenhai.github.io/rollupjs-note/note/chapter00/01.html
         └── demo.js
 ```
 
+## 脚本命令
+```js
+"scripts": {
+    "dev": "node_modules/.bin/rollup -w -c ./build/rollup.config.dev.js",
+    "build": "node_modules/.bin/rollup -c ./build/rollup.config.prod.js",
+    "build:node": "node ./build/build.js",
+    "example": "node ./example/index"
+},
+
+"scripts": {
+    "dev": "node ./build/dev.js",
+    "build": "node ./build/build.js"
+}
+```
+
 ## 安装对应编译的npm模块
 ```bash
 npm i --save-dev rollup 
@@ -30,6 +54,7 @@ npm i --save-dev @rollup/plugin-buble
 功能和babel类似，是简化版的babel
 由于是简化版，编译速度比babel快一些
 对于其他复杂的ES6+的语法使用，后续再讲讲其他扩展插件
+
 
 
 ## 模式

@@ -11,7 +11,7 @@ if (fs.existsSync(distPath)) {
   emptyDir(distPath)
 }
 
-// 文件类型 - cjs/IIFT/umd, nodejs api 模式热编译
+// 文件类型 - cjs/IIFT/umd, nodejs api 模式热编译, nodejs 模块引用
 configList.map((config, index) => {
   config.output.sourcemap = false;
   config.plugins = [

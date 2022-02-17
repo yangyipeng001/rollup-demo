@@ -23,12 +23,34 @@ setTimeout(()=>{
     console.log(`[dev]: ${devUrl}`)
 }, 1000);
 
-// nodejs api 模式热编译
+
+// nodejs 模块引用
 configList.map((config, index) => {
-    config.output.sourcemap = true;
-    return config;
-}) 
+  config.output.sourcemap = true;
+
+  if( index === 0 ) {
+    config.plugins = [
+      ...config.plugins,
+      ...[
+        serve({
+          port: PORT,
+          contentBase: [resolveFile('')]
+        })
+      ]
+    ]
+  }
+
+  return config;
+})
 module.exports = configList;
+
+
+// nodejs api 模式热编译
+// configList.map((config, index) => {
+//     config.output.sourcemap = true;
+//     return config;
+// }) 
+// module.exports = configList;
 
 
 // 文件类型 - IIFE/umd

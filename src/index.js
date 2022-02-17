@@ -48,20 +48,31 @@
 
 
 // 文件类型-IIFT
-import demo from './lib/demo';
+// import demo from './lib/demo';
+// export default {
+//     init() {
+//         const arr1 = [1,2,3];
+//         const arr2 = [4,5,6];
+//         console.log([...arr1, ...arr2]);
 
-export default {
-    init() {
-        const arr1 = [1,2,3];
-        const arr2 = [4,5,6];
-        console.log([...arr1, ...arr2]);
+//         async function initDemo () {
+//             let data = await demo();
+//             console.log(data);
+//         }
 
-        async function initDemo () {
-            let data = await demo();
-            console.log(data);
-        }
+//         initDemo();
+//     }
+// }
 
-        initDemo();
-    }
-}
+
+// node模块引用
+import $ from 'jquery';
+
+const text = 'this is append dom';
+const dom = `<p>${text}</p>`;
+
+$('body').append(dom);
+
+console.log('render end!')
+
 
