@@ -115,12 +115,28 @@
 
 
 // 插件
-import demo from './lib/demo';
+// import demo from './lib/demo';
 
-const arr1 = [1,2,3];
-const arr2 = [4,5,6];
-console.log([...arr1, ...arr2]);
+// const arr1 = [1,2,3];
+// const arr2 = [4,5,6];
+// console.log([...arr1, ...arr2]);
 
-demo.init();
+// demo.init();
+
+
+
+// babel7编译
+class Demo {
+    constructor(data) {
+        this.data = data;
+    }
+
+    logData() {
+        console.log('data is : ', this.data);
+    }
+}
+
+export default Demo
+
 
 

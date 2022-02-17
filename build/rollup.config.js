@@ -9,6 +9,7 @@ const less = require('less');
 const replace = require('@rollup/plugin-replace');
 const commonjs = require('@rollup/plugin-commonjs');
 const helloworld = require('../plugin/rollup-plugin-helloworld');
+const typescript = require('@rollup/plugin-typescript');
 
 
 // 解析json文件
@@ -30,22 +31,70 @@ const plugins = [
     babel(babelOptions),
 ]
 
-// 插件开发
+
+// babel7 编译
 module.exports = [
     {
         input: resolveFile('src/index.js'),
         output: {
             file: resolveFile('dist/index.js'),
             format: 'iife',
+            name: 'Demo',
         }, 
         plugins: [
-            buble(),
-            helloworld({
-                sourcemap: process.env.NODE_ENV === 'development',
+            babel({
+            babelrc: false,
+                presets: [
+                ['@babel/preset-env', { modules: false }]
+            ],
+            plugins: [
+                [
+                    "@babel/plugin-transform-classes",
+                    {
+                        "loose": true
+                    }
+                ]
+            ]
             }),
         ],
     },
 ]
+
+
+
+// typescript 编译
+// module.exports = [
+//     {
+//         input: resolveFile('src/index.ts'),
+//         output: {
+//             file: resolveFile('dist/index.js'),
+//             format: 'iife',
+//             name: 'helloworld',
+//         }, 
+//         plugins: [
+//             typescript(),
+//             ...plugins
+//         ],
+//     },
+// ] 
+
+
+// 插件开发
+// module.exports = [
+//     {
+//         input: resolveFile('src/index.js'),
+//         output: {
+//             file: resolveFile('dist/index.js'),
+//             format: 'iife',
+//         }, 
+//         plugins: [
+//             buble(),
+//             helloworld({
+//                 sourcemap: process.env.NODE_ENV === 'development',
+//             }),
+//         ],
+//     },
+// ]
   
 
 
