@@ -1,3 +1,6 @@
+// 插件开发
+process.env.NODE_ENV = 'production';
+
 const fs = require('fs');
 const { uglify } = require('rollup-plugin-uglify');
 // const config = require('./rollup.config');
