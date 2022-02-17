@@ -78,12 +78,20 @@
 
 
 // json文件引用
-import pkg from '../package.json';
+// import pkg from '../package.json';
+// const dom = document.getElementById('J_Code');
+// const pkgText = JSON.stringify(pkg);
+// const showCode = `<code>${pkgText}</code>`;
+// dom.innerHTML = showCode;
 
-const dom = document.getElementById('J_Code');
-const pkgText = JSON.stringify(pkg);
-const showCode = `<code>${pkgText}</code>`;
 
-dom.innerHTML = showCode;
+// css 编译
+// import './css/index.css';
+// import './css/index.scss';
+import './css/index.less'
+const arr1 = [1,2,3];
+const arr2 = [4,5,6];
+console.log([...arr1, ...arr2]);
+
 
 

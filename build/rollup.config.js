@@ -3,6 +3,11 @@ const buble = require('@rollup/plugin-buble')
 const { babel } = require('@rollup/plugin-babel');
 const server = require('rollup-plugin-serve');
 const {nodeResolve} = require('@rollup/plugin-node-resolve');
+const postcss = require('rollup-plugin-postcss');
+const sass = require('node-sass');
+const less = require('less');
+
+
 const commonjs = require('@rollup/plugin-commonjs');
 
 // 解析json文件
@@ -21,7 +26,56 @@ const plugins = [
 ]
 
 
-// json文件引用
+// css 编译
+const isProductionEnv = process.env.NODE_ENV === 'production'
+// less 编译
+const processLess = function(context, payload) {
+    return new Promise(( resolve, reject ) => {
+        less.render({
+            file: context
+        }, function(err, result) {
+            if( !err ) {
+                resolve(result);
+            } else {
+                reject(err);
+            }
+        });
+    
+        // less.render(context, {})
+        // .then(
+        //     function(output) {
+        //         // output.css = string of css
+        //         // output.map = string of sourcemap
+        //         // output.imports = array of string filenames of the imports referenced
+        //         if( output && output.css ) {
+        //             resolve(output.css);
+        //         } else {
+        //             reject({})
+        //         }
+        //     },
+        //     function(err) {
+        //         reject(err)
+        //     }
+        // );
+    })
+}
+
+// sass 编译
+const processSass = function(context, payload) {
+    return new Promise(( resolve, reject ) => {
+        sass.render({
+            file: context
+        }, function(err, result) {
+            if ( !err ) {
+                resolve(result);
+            } 
+            else {
+                reject(err)
+            }
+        });
+    })
+}
+  
 module.exports = [
     {
         input: resolveFile('src/index.js'),
@@ -30,11 +84,36 @@ module.exports = [
             format: 'umd',
         }, 
         plugins: [
-            json(),
+            postcss({
+                extract: true,
+                minimize: isProductionEnv,
+                // scss
+                // extensions:['css', 'scss'],
+                // process: processSass,
+
+                // less
+                process: processLess,
+            }),
             ...plugins
         ],
     },
 ]
+
+
+// json文件引用
+// module.exports = [
+//     {
+//         input: resolveFile('src/index.js'),
+//         output: {
+//             file: resolveFile('dist/index.js'),
+//             format: 'umd',
+//         }, 
+//         plugins: [
+//             json(),
+//             ...plugins
+//         ],
+//     },
+// ]
 
 
 // nodejs 模块引用
