@@ -7,9 +7,9 @@ const postcss = require('rollup-plugin-postcss');
 const sass = require('node-sass');
 const less = require('less');
 const replace = require('@rollup/plugin-replace');
-
-
 const commonjs = require('@rollup/plugin-commonjs');
+const helloworld = require('../plugin/rollup-plugin-helloworld');
+
 
 // 解析json文件
 const json = require('@rollup/plugin-json');
@@ -30,25 +30,44 @@ const plugins = [
     babel(babelOptions),
 ]
 
-
-// react.js 编译
+// 插件开发
 module.exports = [
     {
         input: resolveFile('src/index.js'),
         output: {
             file: resolveFile('dist/index.js'),
-            format: 'umd',
+            format: 'iife',
         }, 
         plugins: [
-            nodeResolve(),
-            commonjs(),
-            ...plugins,
-            replace({
-                'process.env.NODE_ENV': JSON.stringify( 'production' )
+            buble(),
+            helloworld({
+                sourcemap: process.env.NODE_ENV === 'development',
             }),
         ],
     },
 ]
+  
+
+
+
+// react.js 编译
+// module.exports = [
+//     {
+//         input: resolveFile('src/index.js'),
+//         output: {
+//             file: resolveFile('dist/index.js'),
+//             format: 'umd',
+//         }, 
+//         plugins: [
+//             nodeResolve(),
+//             commonjs(),
+//             ...plugins,
+//             replace({
+//                 'process.env.NODE_ENV': JSON.stringify( 'production' )
+//             }),
+//         ],
+//     },
+// ]
 
 
 // css 编译

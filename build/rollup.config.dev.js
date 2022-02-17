@@ -1,3 +1,6 @@
+// 插件开发
+process.env.NODE_ENV = 'development';
+
 const path = require('path');
 const fs = require('fs')
 const serve = require('rollup-plugin-serve');

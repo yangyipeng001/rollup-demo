@@ -97,3 +97,26 @@ npm i --save-dev rollup-plugin-serve
         - 如果是有全局 exports 方法，就封装成 CommonJS 模块
         - 如果都不是以上模块环境，就封装成 IIFE 模块
 
+
+
+## 插件开发
+安装对应编译的npm模块
+```bash
+## 安装 rollup.js 基础模块
+npm i --save-dev rollup 
+
+## 安装 rollup.js 插件开发工具模块
+npm i --save-dev @rollup/pluginutils
+
+## 安装 sourcemap 处理模块
+npm i --save-dev magic-string
+
+## 安装 rollup.js 编译本地开发服务插件 模块
+npm i --save-dev rollup-plugin-serve
+
+## 安装 rollup.js 编译ES6代码基础插件 模块
+npm i --save-dev @rollup/plugin-buble
+
+## 安装 rollup.js 编译代码混淆插件 模块
+npm i --save-dev rollup-plugin-uglify
+```
