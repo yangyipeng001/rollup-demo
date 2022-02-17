@@ -6,6 +6,7 @@ const {nodeResolve} = require('@rollup/plugin-node-resolve');
 const postcss = require('rollup-plugin-postcss');
 const sass = require('node-sass');
 const less = require('less');
+const replace = require('@rollup/plugin-replace');
 
 
 const commonjs = require('@rollup/plugin-commonjs');
@@ -18,11 +19,35 @@ const resolveFile = require('./resolveFile')
 
 // babel 配置
 const babelOptions = {
-    'presets': ['@babel/preset-env'],
+    'presets': [
+        '@babel/preset-env',
+        // react.js
+        '@babel/preset-react'
+    ],
 }
 
 const plugins = [
     babel(babelOptions),
+]
+
+
+// react.js 编译
+module.exports = [
+    {
+        input: resolveFile('src/index.js'),
+        output: {
+            file: resolveFile('dist/index.js'),
+            format: 'umd',
+        }, 
+        plugins: [
+            nodeResolve(),
+            commonjs(),
+            ...plugins,
+            replace({
+                'process.env.NODE_ENV': JSON.stringify( 'production' )
+            }),
+        ],
+    },
 ]
 
 
@@ -76,28 +101,28 @@ const processSass = function(context, payload) {
     })
 }
   
-module.exports = [
-    {
-        input: resolveFile('src/index.js'),
-        output: {
-            file: resolveFile('dist/index.js'),
-            format: 'umd',
-        }, 
-        plugins: [
-            postcss({
-                extract: true,
-                minimize: isProductionEnv,
-                // scss
-                // extensions:['css', 'scss'],
-                // process: processSass,
+// module.exports = [
+//     {
+//         input: resolveFile('src/index.js'),
+//         output: {
+//             file: resolveFile('dist/index.js'),
+//             format: 'umd',
+//         }, 
+//         plugins: [
+//             postcss({
+//                 extract: true,
+//                 minimize: isProductionEnv,
+//                 // scss
+//                 // extensions:['css', 'scss'],
+//                 // process: processSass,
 
-                // less
-                process: processLess,
-            }),
-            ...plugins
-        ],
-    },
-]
+//                 // less
+//                 process: processLess,
+//             }),
+//             ...plugins
+//         ],
+//     },
+// ]
 
 
 // json文件引用

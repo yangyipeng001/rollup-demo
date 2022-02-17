@@ -88,10 +88,30 @@
 // css 编译
 // import './css/index.css';
 // import './css/index.scss';
-import './css/index.less'
-const arr1 = [1,2,3];
-const arr2 = [4,5,6];
-console.log([...arr1, ...arr2]);
+// import './css/index.less'
+// const arr1 = [1,2,3];
+// const arr2 = [4,5,6];
+// console.log([...arr1, ...arr2]);
+
+
+
+// react 编译
+import React from 'react';
+import ReactDOM from 'react-dom';
+import List from './component/List.jsx';
+
+const dataList = [
+  { name: 'hello' },
+  { name: 'world' },
+  { name: 'react' },
+  { name: 'react-dom' },
+]
+
+
+ReactDOM.render(
+  React.createElement(List, { dataList }, null), 
+  document.getElementById('App')
+);
 
 
 
