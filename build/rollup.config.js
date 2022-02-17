@@ -43,18 +43,18 @@ module.exports = [
         }, 
         plugins: [
             babel({
-            babelrc: false,
-                presets: [
-                ['@babel/preset-env', { modules: false }]
-            ],
-            plugins: [
-                [
-                    "@babel/plugin-transform-classes",
-                    {
-                        "loose": true
-                    }
+                babelrc: false,
+                    presets: [
+                    ['@babel/preset-env', { modules: false }]
+                ],
+                plugins: [
+                    [
+                        "@babel/plugin-transform-classes",
+                        {
+                            "loose": true
+                        }
+                    ]
                 ]
-            ]
             }),
         ],
     },
