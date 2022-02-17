@@ -3,8 +3,11 @@ const buble = require('@rollup/plugin-buble')
 const { babel } = require('@rollup/plugin-babel');
 const server = require('rollup-plugin-serve');
 const {nodeResolve} = require('@rollup/plugin-node-resolve');
-console.log('6', nodeResolve)
 const commonjs = require('@rollup/plugin-commonjs');
+
+// 解析json文件
+const json = require('@rollup/plugin-json');
+
 
 const resolveFile = require('./resolveFile')
 
@@ -18,7 +21,7 @@ const plugins = [
 ]
 
 
-// nodejs 模块引用
+// json文件引用
 module.exports = [
     {
         input: resolveFile('src/index.js'),
@@ -27,12 +30,28 @@ module.exports = [
             format: 'umd',
         }, 
         plugins: [
-            nodeResolve(),
-            commonjs(),
+            json(),
             ...plugins
         ],
     },
 ]
+
+
+// nodejs 模块引用
+// module.exports = [
+//     {
+//         input: resolveFile('src/index.js'),
+//         output: {
+//             file: resolveFile('dist/index.js'),
+//             format: 'umd',
+//         }, 
+//         plugins: [
+//             nodeResolve(),
+//             commonjs(),
+//             ...plugins
+//         ],
+//     },
+// ]
 
 
 // nodejs api 模式热编译

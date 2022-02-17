@@ -24,7 +24,7 @@ setTimeout(()=>{
 }, 1000);
 
 
-// nodejs 模块引用
+// nodejs 模块引用 / json文件引用
 configList.map((config, index) => {
   config.output.sourcemap = true;
 

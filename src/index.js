@@ -66,13 +66,24 @@
 
 
 // node模块引用
-import $ from 'jquery';
+// import $ from 'jquery';
 
-const text = 'this is append dom';
-const dom = `<p>${text}</p>`;
+// const text = 'this is append dom';
+// const dom = `<p>${text}</p>`;
 
-$('body').append(dom);
+// $('body').append(dom);
 
-console.log('render end!')
+// console.log('render end!')
+
+
+
+// json文件引用
+import pkg from '../package.json';
+
+const dom = document.getElementById('J_Code');
+const pkgText = JSON.stringify(pkg);
+const showCode = `<code>${pkgText}</code>`;
+
+dom.innerHTML = showCode;
 
 
